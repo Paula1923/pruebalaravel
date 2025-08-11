@@ -20,13 +20,14 @@ class AdminController extends Controller
         return view('admin.login');
     }
 
-    public function store(Request $request) {
-            
+
+    public function store(Request $request){
+        //dd('Llegó al store');
         $data = $request->all();
-        if (Auth::guard('admin')->attempt(['email' => $data['email'], 'password' => $data['password']])) {
+        if(Auth::guard('admin')->attempt(['email'=>$data['email'],'password'=>$data['password']])) {
             return redirect('admin/dashboard');
-        } else {
-            return redirect()->back()->with('error_message', 'Invalid Email or Password');
+        }else{
+            return redirect()->route('admin.login')->with('error_message', 'Invalid Email or Password');
         }
     }
 
