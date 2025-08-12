@@ -35,13 +35,7 @@ class AdminController extends Controller
     } else {
         return redirect()->back()->with('error_message', 'Invalid Email or Password!');
     }
-}
-    public function logout(Request $request){
-        Auth::logout();
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-        return redirect()->route('admin.login');
-    }
+}  
 
     public function show(Admin $admin)
     {
@@ -51,7 +45,7 @@ class AdminController extends Controller
 
     public function edit(Admin $admin)
     {
-        //
+        return view('admin.update_password'); 
     }
 
 
