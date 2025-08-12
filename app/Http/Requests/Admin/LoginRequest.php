@@ -35,4 +35,5 @@ class LoginRequest extends FormRequest
             'password.required' => 'Password is required!',
         ];
     }
+    
 }

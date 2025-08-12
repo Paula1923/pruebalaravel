@@ -182,10 +182,12 @@
                                     </li>
                                     <!--end::Menu Body-->
                                     <!--begin::Menu Footer-->
-                                    <li class="user-footer">
-                                        <a href="#" class="btn btn-default btn-flat">Profile</a>
-                                        <a href="#" class="btn btn-default btn-flat float-end">Sign out</a>
-                                    </li>
+                                  <form action="{{ route('admin.logout') }}" method="POST" style="display:inline;"> @csrf
+                                    <button type="submit" class="btn btn-link btn-flat float-end" style="padding: 0; border: none; background: none;">
+                                        Sign out
+                                    </button>
+                                </form>
+
                                     <!--end::Menu Footer-->
                                 </ul>
                             </li>

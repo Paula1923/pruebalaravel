@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\AuthController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -10,11 +11,14 @@ Route::get('/', function () {
 Route::prefix('admin')->group(function () {
     // Mostrar formulario de login
     Route::get('login', [AdminController::class, 'create'])->name('admin.login');
+    Route::post('/logout', [AdminController::class, 'logout'])->name('admin.logout');
+
 
     // Procesar formulario de login
     Route::post('login', [AdminController::class, 'store'])->name('admin.login.request');
     Route::group(['middleware' => ['admin']], function () {
         // Ruta del dashboard protegida
         Route::resource('dashboard', AdminController::class)->only(['index']);
+
     });
 });
