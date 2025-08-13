@@ -1,5 +1,5 @@
 @extends('admin.layout.layout')
-@section('content')
+@section('content' )
       <!--begin::App Main-->
       <main class="app-main">
         <!--begin::App Content Header-->

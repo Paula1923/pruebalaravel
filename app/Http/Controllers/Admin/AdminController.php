@@ -45,7 +45,7 @@ class AdminController extends Controller
 
     public function edit(Admin $admin)
     {
-        return view('admin.update_password'); 
+        return view('admin.update-password'); 
     }
 
 
