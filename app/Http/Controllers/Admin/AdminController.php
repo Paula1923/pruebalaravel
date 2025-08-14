@@ -8,13 +8,22 @@ use Illuminate\Http\Request;
 use Auth; 
 use App\Http\Requests\Admin\LoginRequest;
 use App\Services\Admin\AdminService;
+use Illuminate\Support\Facades\Session;
  
-
 class AdminController extends Controller
 {
 
-    public function index()
+    protected $adminService;
+    // Inject AdminService using Constructor
+    public function __construct(AdminService $adminService)
     {
+        $this->adminService = $adminService;
+    }
+
+
+    public function index()
+    {    
+        Session::put('page','dashboard');
         return view('admin.dashboard');
     }
     
@@ -27,8 +36,7 @@ class AdminController extends Controller
     public function store(LoginRequest $request)
 {
     $data = $request->all();
-    $service = new AdminService();
-    $loginStatus = $service->login($data);
+    $loginStatus = $this->adminService->login($data);
 
     if ($loginStatus == 1) {
         return redirect()->route('dashboard.index');
@@ -44,7 +52,8 @@ class AdminController extends Controller
 
 
     public function edit(Admin $admin)
-    {
+    {    
+        Session::put('page', 'update-password');
         return view('admin.update-password'); 
     }
 
@@ -57,6 +66,14 @@ class AdminController extends Controller
 
     public function destroy(Admin $admin)
     {
-        //
+        Auth::guard('admin')->logout();
+        return redirect()->route('admin.login');
     }
+
+    public function verifyPassword(Request $request)
+    {
+        $data = $request->all();
+        return $this->adminService->verifyPassword($data);
+    }
+
 }
